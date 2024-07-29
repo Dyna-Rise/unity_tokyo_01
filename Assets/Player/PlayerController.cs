@@ -22,10 +22,12 @@ public class PlayerController : MonoBehaviour
         axisH = Input.GetAxisRaw("Horizontal");
         if (axisH > 0.0f) //axisHがプラスの値の時＝右が押された時
         {
+            Debug.Log("右移動");
             transform.localScale = new Vector2(1, 1); //イラストの向きを右向き
         }
         else if (axisH < 0.0f) //axisHがマイナスの値の時＝左が押された時
         {
+            Debug.Log("左移動");
             transform.localScale = new Vector2(-1, 1); //イラストの向きを左向き
         }
     }
