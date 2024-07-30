@@ -36,21 +36,31 @@ public class PlayerController : MonoBehaviour
             Debug.Log("左移動");
             transform.localScale = new Vector2(-1, 1); //イラストの向きを左向き
         }
+
+        if (Input.GetButtonDown("Jump")) //もしジャンプに関するボタンがおされたら
+        {
+            Jump(); //自作したJumpメソッドの発動 変数goJumpがtrueになる
+        }
     }
 
     void FixedUpdate()
     {
-        bool onGround = Physics2D.CircleCast(transform.position,
-            0.2f,
-            Vector2.down,
-            0.0f,
-            groundLayer);
-        if (onGround || axisH != 0)
+        //CircleCast()メソッド→基準から出ている特定の形のセンサー（光線）が特定のレイヤーに触れていればtrue、触れていなければfalseを返す
+        bool onGround = Physics2D.CircleCast(
+            transform.position, //発信源の指定どこから？
+            0.2f, //円の半径
+            Vector2.down, //発射方向は下
+            0.0f, //設置距離
+            groundLayer //どのレイヤーに引っかかった時にtrueにするか（レイヤーの指名）
+            );
+
+        if (onGround || axisH != 0)　// 移動キーが押されている時 or（または） 地面にいる時
         {
             //rbody.velocity.y　→　y方向の力に関しては成り行き
             rbody.velocity = new Vector2(axisH * speed, rbody.velocity.y);
         }
-        if (onGround && goJump)
+
+        if (onGround && goJump)　//ジャンプボタンがおされた時 and（かつ） 地面にいる時
         {
             Vector2 jumpPw = new Vector2(0, jump);
             rbody.AddForce(jumpPw, ForceMode2D.Impulse);
@@ -58,8 +68,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //自作したメソッド
     public void Jump()
     {
+        //ジャンプ開始フラグ 初期値false→trueに　→ジャンプスタート
         goJump = true;
     }
 }
