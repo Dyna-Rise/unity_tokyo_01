@@ -13,12 +13,23 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer; //判定対象のレイヤー
     bool goJump = false; //ジャンプ開始フラグ
 
+    Animator animator; //アニメーターコンポーネント
+    public string stopAnime = "PlayerStop";
+    public string moveAnime = "PlayerMove";
+    public string jumpAnime = "PlayerJump";
+    public string goalAnime = "PlayerGoal";
+    public string deadAnime = "PlayerOver";
+    string nowAnime = ""; //初期値
+    string oldAnime = "";　//初期値
 
     // Start is called before the first frame update
     void Start()
     {
         //PlayerについているRigidbody2Dコンポーネントがrbodyということにする
         rbody = this.GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        nowAnime = stopAnime;
+        oldAnime = stopAnime;
     }
 
     // Update is called once per frame
@@ -67,6 +78,27 @@ public class PlayerController : MonoBehaviour
             rbody.AddForce(jumpPw, ForceMode2D.Impulse); //②AddForce()メソッドを使って指定した方向に押し出している
             goJump = false; //ジャンプ済み フラグをfalseに戻す
         }
+
+        if (onGround)
+        {
+            if(axisH == 0)
+            {
+                nowAnime = stopAnime;
+            }
+            else
+            {
+                nowAnime = moveAnime;
+            }
+        }
+        else
+        {
+            nowAnime = jumpAnime;
+        }
+        if (nowAnime != oldAnime)
+        {
+            oldAnime = nowAnime;
+            animator.Play(nowAnime);
+        }
     }
 
     //自作したメソッド
@@ -74,5 +106,26 @@ public class PlayerController : MonoBehaviour
     {
         //ジャンプ開始フラグ 初期値false→trueに　→ジャンプスタート
         goJump = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Goal")
+        {
+            Goal();
+        }
+        else if(collision.gameObject.tag == "Dead")
+        {
+            GameOver();
+        }
+    }
+    public void Goal()
+    {
+        animator.Play(goalAnime);
+    }
+
+    public void GameOver()
+    {
+        animator.Play(deadAnime);
     }
 }
