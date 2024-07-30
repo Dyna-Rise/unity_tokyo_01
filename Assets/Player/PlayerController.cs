@@ -62,9 +62,10 @@ public class PlayerController : MonoBehaviour
 
         if (onGround && goJump)　//ジャンプボタンがおされた時 and（かつ） 地面にいる時
         {
-            Vector2 jumpPw = new Vector2(0, jump);
-            rbody.AddForce(jumpPw, ForceMode2D.Impulse);
-            goJump = false;
+            Vector2 jumpPw = new Vector2(0, jump);//①次のAddForce()メソッドの材料として、力がかかる方向を作っています。水平は0、垂直はプラス方向にjumpの数字
+            //作った方向の数字を変数jumpPwに格納している
+            rbody.AddForce(jumpPw, ForceMode2D.Impulse); //②AddForce()メソッドを使って指定した方向に押し出している
+            goJump = false; //ジャンプ済み フラグをfalseに戻す
         }
     }
 
