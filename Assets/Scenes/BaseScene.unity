@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 440712422}
   - component: {fileID: 440712421}
   - component: {fileID: 440712420}
+  - component: {fileID: 440712424}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -300,6 +301,19 @@ RectTransform:
   m_AnchoredPosition: {x: 2.6300046, y: -107.78003}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &440712424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440712419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5268c08f15250bf4c862250c86a51024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Stage1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +418,7 @@ GameObject:
   - component: {fileID: 526872228}
   - component: {fileID: 526872227}
   - component: {fileID: 526872226}
+  - component: {fileID: 526872229}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -513,6 +528,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 526872224}
   m_CullTransparentMesh: 1
+--- !u!114 &526872229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526872224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5268c08f15250bf4c862250c86a51024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: BaseScene
 --- !u!1 &530283949
 GameObject:
   m_ObjectHideFlags: 0
