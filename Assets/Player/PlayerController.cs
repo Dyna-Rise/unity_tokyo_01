@@ -157,5 +157,6 @@ public class PlayerController : MonoBehaviour
     {
         Rigidbody2D rbody = GetComponent<Rigidbody2D>();
         rbody.velocity = new Vector2(0, 0);
+        Debug.Log("ストップ");
     }
 }
