@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //ゲームの状態※staticなので、あらゆるシーンに内容を引き継ぐ変数
+    public static string gameState = "playing"; 
+
     Rigidbody2D rbody; //Rigidbody2D型の変数
     float axisH = 0.0f; //入力の力
     public float speed = 3.0f; //プレイヤーの移動速度
@@ -30,11 +33,18 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         nowAnime = stopAnime;
         oldAnime = stopAnime;
+
+        gameState = "playing"; //ゲームの状態をplayingに戻す
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(gameState != "playing")
+        {
+            return;
+        }
+
         //水平方向にまつわるキー（左右キー・ AとD）がおされている場合、左方向なら-1、右方向なら1、何も押されていなければ0の値を返すメソッド→GetAixsRaw
         axisH = Input.GetAxisRaw("Horizontal");
         if (axisH > 0.0f) //axisHがプラスの値の時＝右が押された時
@@ -56,6 +66,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(gameState != "playing")
+        {
+            return;
+        }
+
         //CircleCast()メソッド→基準から出ている特定の形のセンサー（光線）が特定のレイヤーに触れていればtrue、触れていなければfalseを返す
         bool onGround = Physics2D.CircleCast(
             transform.position, //発信源の指定どこから？
@@ -112,20 +127,35 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Goal")
         {
-            Goal();
+            Goal(); //自作メソッドの発動
         }
         else if(collision.gameObject.tag == "Dead")
         {
-            GameOver();
+            GameOver(); //自作メソッドの発動
         }
     }
+
     public void Goal()
     {
         animator.Play(goalAnime);
+        gameState = "gameclear";
+        GameStop(); //ゲーム停止の自作メソッドの発動
     }
 
     public void GameOver()
     {
         animator.Play(deadAnime);
+        gameState = "gameover";
+        GameStop(); //ゲーム停止の自作メソッドの発動
+
+        //ゲームオーバーの演出部分
+        GetComponent<CapsuleCollider2D>().enabled = false; //コライダーの機能をカット
+        rbody.AddForce(new Vector2(0,5),ForceMode2D.Impulse);//瞬発的に上方向に跳ね上げる
+    }
+
+    void GameStop()
+    {
+        Rigidbody2D rbody = GetComponent<Rigidbody2D>();
+        rbody.velocity = new Vector2(0, 0);
     }
 }
