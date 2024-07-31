@@ -31,11 +31,34 @@ public class GameManager : MonoBehaviour
     {
         if(PlayerController.gameState == "gameclear")
         {
+            mainImage.SetActive(true); //非表示にしていた画像を表示に戻す
+            panel.SetActive(true);//非表示にしていたパネルを表示に戻す
 
+            //リスタートボタンを無効化する
+            //CanvasではないRestartButtonが持っているButtonコンポーネントを取得して変数btに入れる
+            Button bt = restartButton.GetComponent<Button>();
+            bt.interactable = false;
+
+            //絵の差し替え
+            mainImage.GetComponent<Image>().sprite = gameClearSpr;
+
+            PlayerController.gameState = "gameend"; //gameendにすることで、以後どこにもひっかからない※無駄に何回も処理を繰り返さない
         }
+
         else if(PlayerController.gameState == "gameover")
         {
+            mainImage.SetActive(true); //非表示にしていた画像を表示に戻す
+            panel.SetActive(true);//非表示にしていたパネルを表示に戻す
 
+            //ネクストボタンを無効化する
+            //CanvasではないRestartButtonが持っているButtonコンポーネントを取得して変数btに入れる
+            Button bt = nextButton.GetComponent<Button>();
+            bt.interactable = false;
+
+            //絵の差し替え
+            mainImage.GetComponent<Image>().sprite = gameOverSpr;
+
+            PlayerController.gameState = "gameend"; //gameendにすることで、以後どこにもひっかからない※無駄に何回も処理を繰り返さない
         }
         else if(PlayerController.gameState == "playing")
         {
