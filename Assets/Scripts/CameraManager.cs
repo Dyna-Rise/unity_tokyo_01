@@ -9,6 +9,8 @@ public class CameraManager : MonoBehaviour
     public float topLimit = 0.0f;       // 上スクロールリミット 
     public float bottomLimit = 0.0f;    // 下スクロールリミット
 
+    public GameObject subScreen; //サブスクリーン
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,16 @@ public class CameraManager : MonoBehaviour
             // カメラ位置のVector3を作る
             Vector3 v3 = new Vector3(x, y, z);
             transform.position = v3;
+
+            if (subScreen != null)
+            {
+                //サブスクリーンの動きを決める
+                //カメラの動きは直前に決め終わっているのでそこでつかっていた変数x、y、zは使い回し
+                y = subScreen.transform.position.y;
+                z = subScreen.transform.position.z;
+                Vector3 v = new Vector3(x / 2.0f, y, z);
+                subScreen.transform.position = v;
+            }
         }
     }
 }
