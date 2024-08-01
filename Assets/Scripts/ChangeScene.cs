@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement; //切り替え命令が用意されている�
 public class ChangeScene : MonoBehaviour
 {
     public string sceneName; //目的の（切り替え先の)シーン名が入る
+
     // Start is called before the first frame update
     void Start()
     {
