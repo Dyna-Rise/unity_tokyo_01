@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; //UIを使うのに必要
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class GameManager : MonoBehaviour
 
     Image titleImage; //ImageオブジェクトにひっついているImageコンポーネント
 
+    public GameObject timeBar; //時間表示イメージ
+    public GameObject timeText; //時間テキスト
+    TimeController timeCnt; //TimeControllerクラス
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +29,19 @@ public class GameManager : MonoBehaviour
 
         //パネルは即非表示
         panel.SetActive(false);
+
+
+        //++時間制限追加+++
+        //TimeControllerを取得
+        timeCnt = GetComponent<TimeController>();
+        if(timeCnt != null)
+        {
+            if(timeCnt.gameTime == 0.0f)
+            {
+                timeBar.SetActive(false); //時間制限梨なら隠す
+            }
+
+        }
     }
 
     // Update is called once per frame
@@ -43,6 +61,13 @@ public class GameManager : MonoBehaviour
             mainImage.GetComponent<Image>().sprite = gameClearSpr;
 
             PlayerController.gameState = "gameend"; //gameendにすることで、以後どこにもひっかからない※無駄に何回も処理を繰り返さない
+
+
+            //++時間制限追加+++
+            if(timeCnt != null)
+            {
+                timeCnt.isTimeOver = true; //カウント停止
+            }
         }
 
         else if(PlayerController.gameState == "gameover")
@@ -59,10 +84,38 @@ public class GameManager : MonoBehaviour
             mainImage.GetComponent<Image>().sprite = gameOverSpr;
 
             PlayerController.gameState = "gameend"; //gameendにすることで、以後どこにもひっかからない※無駄に何回も処理を繰り返さない
+
+
+            //++時間制限追加+++
+            if (timeCnt != null)
+            {
+                timeCnt.isTimeOver = true; //カウント停止
+            }
+
         }
         else if(PlayerController.gameState == "playing")
         {
             //ゲーム中のUI
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            //PlayerControllerを取得
+            PlayerController playerCnt = player.GetComponent<PlayerController>();
+            if(timeCnt != null)
+            {
+                if(timeCnt.gameTime > 0.0f)
+                {
+                    //整数に代入することで小数を切り捨てる
+                    int time = (int)timeCnt.displayTime;
+                    //タイム更新
+                    timeText.GetComponent<TextMeshProUGUI>().text = time.ToString();
+                    
+                    //タイムオーバー
+                    if(time == 0)
+                    {
+                        playerCnt.GameOver(); //ゲームオーバーにする
+                    }
+                }
+            }
+
         }
     }
 
