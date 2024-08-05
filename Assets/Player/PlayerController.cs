@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         else if(collision.gameObject.tag  == "ScoreItem")
         {
             //ぶつかった相手のコライダー＝変数collisionのオブジェクト(gameObject)のItemDataコンポーネントが欲しい
-            ItemData item = collision.gameObject.gameObject.GetComponent<ItemData>();
+            ItemData item = collision.gameObject.GetComponent<ItemData>();
             score = item.value;
 
             Destroy(collision.gameObject); //相手をオブジェクトごと抹消するメソッド
