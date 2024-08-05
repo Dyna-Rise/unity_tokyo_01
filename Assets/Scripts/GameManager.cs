@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             //PlayerControllerを取得
             PlayerController playerCnt = player.GetComponent<PlayerController>();
+
             if(timeCnt != null)
             {
                 if(timeCnt.gameTime > 0.0f)
@@ -116,7 +117,6 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-
         }
     }
 
