@@ -36,9 +36,10 @@ public class GameManager : MonoBehaviour
         timeCnt = GetComponent<TimeController>();
         if(timeCnt != null)
         {
+            //カウントダウン前提で、カウントダウンする気がない時
             if(timeCnt.gameTime == 0.0f)
             {
-                timeBar.SetActive(false); //時間制限梨なら隠す
+                timeBar.SetActive(false); //時間制限なしなら隠す
             }
 
         }
