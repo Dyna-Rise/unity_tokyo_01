@@ -123,7 +123,15 @@ public class MovingBlock : MonoBehaviour
         {
             fromPos = startPos;
         }
-        //移動せん
-        //Gizmos.DrawLine()
+        //移動線
+        Gizmos.DrawLine(fromPos, new Vector2(fromPos.x + moveX, fromPos.y + moveY));
+
+        //スプライトのサイズ
+        Vector2 size = GetComponent<SpriteRenderer>().size;
+        //初期位置
+        Gizmos.DrawWireCube(fromPos, new Vector2(size.x, size.y));
+        //移動位置
+        Vector2 toPos = new Vector3(fromPos.x + moveX, fromPos.y + moveY);
+        Gizmos.DrawWireCube(toPos, new Vector2(size.x, size.y));
     }
 }

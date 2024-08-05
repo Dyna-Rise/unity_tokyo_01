@@ -427,6 +427,8 @@ MonoBehaviour:
   nextButton: {fileID: 2616282895472523419}
   timeBar: {fileID: 6643673270331089}
   timeText: {fileID: 3326648726176987391}
+  scoreText: {fileID: 5728277858691451609}
+  stageScore: 0
 --- !u!114 &1749704510655343358
 MonoBehaviour:
   m_ObjectHideFlags: 0
