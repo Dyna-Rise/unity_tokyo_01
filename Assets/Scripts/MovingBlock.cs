@@ -7,7 +7,7 @@ public class MovingBlock : MonoBehaviour
     public float moveX = 0.0f;          //X移動距離
     public float moveY = 0.0f;          //Y移動距離
     public float times = 0.0f;          //時間
-    public float weight = 0.0f;         //停止時間
+    public float wait = 0.0f;         //停止時間
     public bool isMoveWhenOn = false;   //乗った時に動くフラグ
 
     public bool isCanMove = true;       //動くフラグ
@@ -69,7 +69,7 @@ public class MovingBlock : MonoBehaviour
                 if(isMoveWhenOn == false)
                 {
                     //乗った時に動くフラグOFF
-                    //Invoke("Move", wait);
+                    Invoke("Move", wait);
                 }
             }
         }

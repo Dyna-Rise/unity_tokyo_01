@@ -6,7 +6,7 @@ public class GimmickBlock : MonoBehaviour
 {
     public float length = 0.0f;     // 自動落下検知距離
     public bool isDelete = false;   // 落下後に削除するフラグ
-    public GameObject deadObj; //死亡あたり
+    public GameObject deadObj; //Dead判定を持っているオブジェクト
 
     bool isFell = false;            // 落下フラグ
     float fadeTime = 0.5f;          // フェードアウト時間
@@ -24,10 +24,12 @@ public class GimmickBlock : MonoBehaviour
     void Update()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player"); // プレイヤーを探す
+
         if (player != null)
         {
             // プレイヤーとの距離計測
             float d = Vector2.Distance(transform.position, player.transform.position);
+
             if (length >= d)
             {
                 Rigidbody2D rbody = GetComponent<Rigidbody2D>();
@@ -41,7 +43,7 @@ public class GimmickBlock : MonoBehaviour
         }
         if (isFell)
         {
-            // 落下した
+            // 落下して何かとぶつかった後
             // 透明値を変更してフェードアウトさせる
             fadeTime -= Time.deltaTime; // 前フレームの差分秒マイナス
             Color col = GetComponent<SpriteRenderer>().color;   // カラーを取り出す
@@ -64,8 +66,11 @@ public class GimmickBlock : MonoBehaviour
         }
     }
 
+    //シーンビューにだけ働くメソッド
+    //指定したものを描く
     void OnDrawGizmosSelected()
     {
+        //円を描くメソッド　※どこに？ ※どの大きさの？
         Gizmos.DrawWireSphere(transform.position, length);
     }
 }

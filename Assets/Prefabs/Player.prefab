@@ -172,6 +172,7 @@ MonoBehaviour:
   jumpAnime: PlayerJump
   goalAnime: PlayerGoal
   deadAnime: PlayerOver
+  score: 0
 --- !u!95 &7339092756779168266
 Animator:
   serializedVersion: 5
