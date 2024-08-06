@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CannonController : MonoBehaviour
 {
-    public GameObject objPrefab;        // 発生させる Prefab データ 
-    public float delayTime = 3.0f;      // 遅延時間
-    public float fireSpeed = 4.0f;    // 発射速度
+    public GameObject objPrefab; // 発生させる Prefab データ 
+    public float delayTime = 3.0f; // 発射間隔
+    public float fireSpeed = 4.0f; // 発射速度
     public float length = 8.0f;　//範囲
 
-    GameObject player;                  // プレイヤー
-    Transform gateTransform;     // 発射口のTransformコンポーネント
-    float passedTimes = 0;              // 経過時間
+    GameObject player;        //プレイヤー
+    Transform gateTransform;  //発射口のTransformコンポーネント
+    float passedTimes = 0.0f; // 経過時間
 
 
     // 距離チェック　自作メソッド
@@ -52,6 +52,7 @@ public class CannonController : MonoBehaviour
                 // 発射位置の取得
                 Vector2 pos = new Vector2(gateTransform.position.x, gateTransform.position.y);
                 // Prefab から 砲弾GameObject を作る
+                //Instantiateメソッド ※対象物を、指定の座標、指定の回転で生み出す
                 GameObject obj = Instantiate(objPrefab, pos, Quaternion.identity);
                 // 砲身が向いている方に発射する
                 Rigidbody2D rbody = obj.GetComponent<Rigidbody2D>();

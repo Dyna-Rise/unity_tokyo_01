@@ -9,6 +9,7 @@ public class ShellController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Destroyに第二引数を与えると第二引数の秒数だけまってから消滅する
         Destroy(gameObject, deleteTime); // 削除設定
     }
 
