@@ -12,13 +12,13 @@ public class SwitchAction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (on)
+        if (on) //最初から変数onがtrueだった場合
         {
-            GetComponent<SpriteRenderer>().sprite = imageOn;
+            GetComponent<SpriteRenderer>().sprite = imageOn; //レバーオンの絵にする
         }
         else
         {
-            GetComponent<SpriteRenderer>().sprite = imageOff;
+            GetComponent<SpriteRenderer>().sprite = imageOff;//レバーオフの絵にする
         }
     }
 
@@ -33,14 +33,16 @@ public class SwitchAction : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            if (on)
+            if (on) //もしスイッチがオンだったらオフにしなければならない
             {
                 on = false;
                 GetComponent<SpriteRenderer>().sprite = imageOff;
+
+                //他人であるMovingBlockスクリプトの情報を取得
                 MovingBlock movBlock = targetMoveBlock.GetComponent<MovingBlock>();
                 movBlock.Stop();
             }
-            else
+            else //逆の事をするだけ
             {
                 on = true;
                 GetComponent<SpriteRenderer>().sprite = imageOn;

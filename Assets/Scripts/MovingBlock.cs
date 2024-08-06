@@ -123,22 +123,26 @@ public class MovingBlock : MonoBehaviour
     //移動範囲表示
     void OnDrawGizmosSelected()
     {
-        Vector2 fromPos;
-        if(startPos == Vector3.zero)
+        Vector2 fromPos; //描画にあたっての基準座標
+
+        if(startPos == Vector3.zero) //Vector3.zero →　new Vector3(0,0,0)
         {
-            fromPos = transform.position;
+            fromPos = transform.position;  //基準座標はブロックの位置そのものだと念押し
         }
         else
         {
-            fromPos = startPos;
+            fromPos = startPos; //基準座標はブロックの初期座標と同じ
         }
-        //移動線
+
+        //移動線 ※始点座標、終点座標
         Gizmos.DrawLine(fromPos, new Vector2(fromPos.x + moveX, fromPos.y + moveY));
 
-        //スプライトのサイズ
+        //スプライトのサイズ ※描画する四角形のサイズにする
         Vector2 size = GetComponent<SpriteRenderer>().size;
+
         //初期位置
         Gizmos.DrawWireCube(fromPos, new Vector2(size.x, size.y));
+
         //移動位置
         Vector2 toPos = new Vector3(fromPos.x + moveX, fromPos.y + moveY);
         Gizmos.DrawWireCube(toPos, new Vector2(size.x, size.y));
