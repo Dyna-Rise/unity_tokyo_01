@@ -112,7 +112,7 @@ public class MovingBlock : MonoBehaviour
     }
 
     //移動範囲表示
-    void OnDrawGizmosSlecected()
+    void OnDrawGizmosSelected()
     {
         Vector2 fromPos;
         if(startPos == Vector3.zero)
