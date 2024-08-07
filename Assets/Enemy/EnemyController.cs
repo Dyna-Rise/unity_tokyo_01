@@ -6,10 +6,10 @@ public class EnemyController : MonoBehaviour
 {
     public float speed = 3.0f;          // 移動速度
     public bool isToRight = false;   // 向き right or left 
-    public float revTime = 0.0f;          // 反転時間
+    public float revTime = 0.0f;          // 反転までの時間
     public LayerMask groundLayer;        // 地面レイヤー
 
-    float time = 0;
+    float time = 0; //経過時間
 
     // Start is called before the first frame update
     void Start()
