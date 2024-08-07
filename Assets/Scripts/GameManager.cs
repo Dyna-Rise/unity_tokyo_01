@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
     public static int totalScore; //全編通して引き継いでいくスコア
     public int stageScore = 0; //そのステージの合計得点※次のステージに移る頃には消滅
 
+    //切り替え対象のサウンドクリップ
+    public AudioClip meGameOver; //ゲームオーバーの音源
+    public AudioClip meGameClear; //ゲームクリアの音源
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,6 +93,17 @@ public class GameManager : MonoBehaviour
             stageScore = 0; //二重にならないようにstageScoreはリセット
             UpdateScore(); //UIに反映
 
+            //前のBGMを止めて、ゲームクリアの音を鳴らす
+            //Audio Sourceコンポーネントの力が必要
+            AudioSource soundPlayer = GetComponent<AudioSource>();
+            if(soundPlayer != null)
+            {
+                //BGMを停止
+                soundPlayer.Stop();
+                //ゲームクリアの音を一回だけ鳴らす
+                soundPlayer.PlayOneShot(meGameClear);
+            }
+
         }
 
         else if (PlayerController.gameState == "gameover")
@@ -111,6 +127,18 @@ public class GameManager : MonoBehaviour
             {
                 timeCnt.isTimeOver = true; //カウント停止
             }
+
+            //前のBGMを止めて、ゲームオーバーの音を鳴らす
+            //Audio Sourceコンポーネントの力が必要
+            AudioSource soundPlayer = GetComponent<AudioSource>();
+            if (soundPlayer != null)
+            {
+                //BGMを停止
+                soundPlayer.Stop();
+                //ゲームオーバーの音を一回だけ鳴らす
+                soundPlayer.PlayOneShot(meGameOver);
+            }
+
 
         }
         else if (PlayerController.gameState == "playing")
